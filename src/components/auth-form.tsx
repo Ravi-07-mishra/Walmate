@@ -96,7 +96,7 @@ export default function AuthForm({ type }: AuthFormProps) {
       <CardHeader>
         <CardTitle className="text-2xl">
           {isLogin ? 'Welcome Back!' : 'Create an Account'}
-        </C/ardTitle>
+        </CardTitle>
         <CardDescription>
           {isLogin
             ? 'Enter your credentials to access your account.'
