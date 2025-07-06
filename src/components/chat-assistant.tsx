@@ -9,10 +9,8 @@ import {
   SheetTitle,
   SheetDescription,
   SheetFooter,
-  SheetClose,
 } from '@/components/ui/sheet';
 import {
-  MessageSquarePlus,
   Send,
   Mic,
   ImageUp,
@@ -42,6 +40,7 @@ import {
 } from '@/ai/flows/display-suggested-products';
 import type { Product } from './product-card';
 import ProductDetailModal from './product-detail-modal';
+import { useCart } from '@/context/cart-context';
 
 interface Message {
   id: string;
@@ -63,6 +62,7 @@ export default function ChatAssistant() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const { toast } = useToast();
+  const { addToCart } = useCart();
 
   const handleSendMessage = async (messageContent?: string) => {
     const text = messageContent || input;
@@ -113,32 +113,25 @@ export default function ChatAssistant() {
   };
   
   const handleProductSelect = (product: any) => {
-    setSelectedProduct({
-        name: product.name,
-        price: product.price,
-        imageUrl: product.imageUrl,
-        description: product.description,
-        dataAiHint: product.name.toLowerCase().split(' ').slice(0,2).join(' '),
-        material: 'Premium Quality',
-        features: 'Durable, Stylish, and Comfortable'
-    });
+    addToCart(product);
     setIsOpen(false);
   }
 
   return (
     <>
       <Button
-        className="fixed bottom-6 right-6 h-16 w-16 rounded-full bg-accent shadow-lg hover:bg-accent/90 animate-in fade-in zoom-in-95"
-        size="icon"
+        className="fixed bottom-6 right-6 h-14 rounded-full shadow-lg hover:bg-primary/90 animate-in fade-in zoom-in-95 text-lg font-semibold px-6 bg-primary text-primary-foreground"
+        size="lg"
         onClick={() => setIsOpen(true)}
       >
-        <MessageSquarePlus className="h-8 w-8 text-accent-foreground" />
+        <Sparkles className="h-6 w-6 mr-3" />
+        Shop with WalMate AI
       </Button>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent className="flex flex-col w-full sm:max-w-md">
           <SheetHeader>
             <SheetTitle className="flex items-center gap-2">
-              <Sparkles className="text-accent" />
+              <Sparkles className="text-primary" />
               WalMate AI Assistant
             </SheetTitle>
             <SheetDescription>
@@ -173,7 +166,7 @@ export default function ChatAssistant() {
                 >
                   {message.role === 'assistant' && (
                     <Avatar className="h-8 w-8">
-                      <AvatarFallback className="bg-accent text-accent-foreground">
+                      <AvatarFallback className="bg-primary text-primary-foreground">
                         <Sparkles className="h-5 w-5" />
                       </AvatarFallback>
                     </Avatar>
@@ -206,7 +199,7 @@ export default function ChatAssistant() {
                                       <p className="font-semibold truncate">{product.name}</p>
                                       <p className="text-sm text-primary font-bold">₹{product.price?.toLocaleString('en-IN')}</p>
                                       <Button size="sm" className="w-full mt-2" onClick={() => handleProductSelect(product)}>
-                                        Go to Product Page
+                                        Add to Cart
                                       </Button>
                                     </div>
                                   </CardContent>
@@ -225,7 +218,7 @@ export default function ChatAssistant() {
               {isLoading && (
                 <div className="flex items-start gap-3">
                   <Avatar className="h-8 w-8">
-                    <AvatarFallback className="bg-accent text-accent-foreground">
+                    <AvatarFallback className="bg-primary text-primary-foreground">
                       <Sparkles className="h-5 w-5" />
                     </AvatarFallback>
                   </Avatar>

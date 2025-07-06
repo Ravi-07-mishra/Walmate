@@ -12,6 +12,8 @@ import {
 } from '@/components/ui/dialog';
 import type { Product } from './product-card';
 import { Badge } from './ui/badge';
+import { useCart } from '@/context/cart-context';
+import { ShoppingCart } from 'lucide-react';
 
 interface ProductDetailModalProps {
   product: Product;
@@ -24,6 +26,13 @@ export default function ProductDetailModal({
   isOpen,
   onClose,
 }: ProductDetailModalProps) {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    onClose();
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-3xl grid-cols-1 md:grid-cols-2 gap-6">
@@ -61,8 +70,10 @@ export default function ProductDetailModal({
           </div>
           
           <DialogFooter className="!mt-auto pt-4 gap-2 sm:!justify-start">
-            <Button size="lg" className="bg-primary hover:bg-primary/90">Buy Now</Button>
-            <Button size="lg" variant="outline" className="bg-accent hover:bg-accent/90 text-accent-foreground hover:text-accent-foreground">Try</Button>
+            <Button size="lg" onClick={handleAddToCart}>
+                <ShoppingCart className="mr-2 h-5 w-5"/>
+                Add to Cart
+            </Button>
           </DialogFooter>
         </div>
       </DialogContent>

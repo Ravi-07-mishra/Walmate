@@ -5,6 +5,8 @@ import AppSidebar from '@/components/sidebar';
 import AppHeader from '@/components/header';
 import ChatAssistant from '@/components/chat-assistant';
 import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from 'next-themes';
+import { CartProvider } from '@/context/cart-context';
 
 export const metadata: Metadata = {
   title: 'WalMate: Smart Shopping Assistant',
@@ -21,22 +23,31 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body bg-background text-foreground antialiased">
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            <div className="flex flex-col h-full">
-              <AppHeader />
-              <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
-                {children}
-              </main>
-            </div>
-          </SidebarInset>
-        </SidebarProvider>
-        <ChatAssistant />
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <CartProvider>
+            <SidebarProvider>
+              <AppSidebar />
+              <SidebarInset>
+                <div className="flex flex-col h-full">
+                  <AppHeader />
+                  <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
+                    {children}
+                  </main>
+                </div>
+              </SidebarInset>
+            </SidebarProvider>
+            <ChatAssistant />
+            <Toaster />
+          </CartProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

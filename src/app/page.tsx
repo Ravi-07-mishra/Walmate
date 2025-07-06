@@ -8,6 +8,7 @@ export default function Home() {
       <HeroCarousel />
       <div className="space-y-4">
         <h2 className="text-3xl font-bold tracking-tight">Featured Products</h2>
+        <p className="text-muted-foreground">Handpicked selections, just for you.</p>
         <Separator />
         <ProductGrid />
       </div>

@@ -11,7 +11,7 @@ import {
 import {
   History,
   Package,
-  Heart,
+  ShoppingCart,
   LayoutGrid,
   HelpCircle,
   ShoppingBag,
@@ -22,7 +22,7 @@ import { usePathname } from 'next/navigation';
 const menuItems = [
   { href: '/history', label: 'Shopping History', icon: History },
   { href: '/orders', label: 'Orders', icon: Package },
-  { href: '/saved', label: 'Saved Items', icon: Heart },
+  { href: '/cart', label: 'My Cart', icon: ShoppingCart },
   { href: '/categories', label: 'Categories', icon: LayoutGrid },
   { href: '/help', label: 'Help', icon: HelpCircle },
 ];
