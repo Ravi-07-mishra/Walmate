@@ -1,5 +1,5 @@
 
-import Image from 'next/image';
+
 import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -38,12 +38,12 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
       <Card className="animate-in fade-in-50">
         <CardContent className="p-6 grid md:grid-cols-2 gap-8">
           <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
-            <Image
+            <img
               src={product.imageUrl}
               alt={product.name}
-              fill
-              className="object-cover"
+              className="w-full h-full object-cover"
               data-ai-hint={product.dataAiHint}
+              loading="lazy"
             />
           </div>
           <div className="flex flex-col space-y-6">

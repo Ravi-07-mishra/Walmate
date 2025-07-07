@@ -28,7 +28,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import Image from 'next/image';
 import { Card, CardContent } from './ui/card';
 import { useToast } from '@/hooks/use-toast';
 import {
@@ -201,13 +200,12 @@ export default function ChatAssistant() {
                                   <Card className="overflow-hidden">
                                     <CardContent className="p-0">
                                       <Link href={fullProduct ? `/product/${fullProduct.id}` : '#'} onClick={() => fullProduct && setIsOpen(false)}>
-                                        <Image
+                                        <img
                                           src={product.imageUrl || 'https://placehold.co/200x200.png'}
                                           alt={product.name || 'product'}
-                                          width={200}
-                                          height={200}
                                           className="w-full h-auto aspect-square object-cover"
                                           data-ai-hint={product.name?.toLowerCase().split(' ').slice(0,2).join(' ')}
+                                          loading="lazy"
                                         />
                                       </Link>
                                       <div className="p-3">

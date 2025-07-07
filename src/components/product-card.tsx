@@ -1,7 +1,6 @@
 
 'use client';
 
-import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/cart-context';
@@ -31,12 +30,12 @@ export default function ProductCard({ product }: ProductCardProps) {
       <CardContent className="p-0 flex-grow">
         <div className="relative aspect-square">
           <Link href={`/product/${product.id}`} aria-label={`View details for ${product.name}`}>
-            <Image
+            <img
               src={product.imageUrl}
               alt={product.name}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               data-ai-hint={product.dataAiHint}
+              loading="lazy"
             />
           </Link>
         </div>

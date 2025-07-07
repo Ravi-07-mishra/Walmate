@@ -1,7 +1,6 @@
 
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/cart-context';
 import { Button } from '@/components/ui/button';
@@ -34,12 +33,12 @@ export default function CartPage() {
           {cartItems.map((item) => (
             <Card key={item.id} className="flex items-center p-4 shadow-sm">
               <div className="relative w-24 h-24 rounded-md overflow-hidden mr-4">
-                <Image
+                <img
                   src={item.imageUrl}
                   alt={item.name}
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                   data-ai-hint={item.dataAiHint}
+                  loading="lazy"
                 />
               </div>
               <div className="flex-1">
