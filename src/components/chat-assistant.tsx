@@ -40,7 +40,7 @@ import {
 } from '@/ai/flows/display-suggested-products';
 import type { Product } from './product-card';
 import { useCart } from '@/context/cart-context';
-import allProducts from '@/data/products.json';
+import allProductsData from '@/data/products.json';
 import Link from 'next/link';
 
 interface Message {
@@ -55,6 +55,8 @@ const suggestedQuestions = [
   'Show me some stylish backpacks',
   'What are the best sunglasses for a round face?',
 ];
+
+const allProducts = allProductsData.products;
 
 export default function ChatAssistant() {
   const [isOpen, setIsOpen] = useState(false);

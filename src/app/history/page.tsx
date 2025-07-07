@@ -6,7 +6,7 @@ import products from '@/data/products.json';
 
 // For demonstration, we'll show a few products as "recently viewed".
 // In a real app, this would be based on actual user history.
-const recentlyViewed = products.slice(3, 7);
+const recentlyViewed = products.products.slice(3, 7);
 
 export default function HistoryPage() {
   return (

@@ -4,7 +4,7 @@
 import ProductCard from './product-card';
 import products from '@/data/products.json';
 
-const featuredProducts = products;
+const featuredProducts = products.products;
 
 export default function ProductGrid() {
   return (

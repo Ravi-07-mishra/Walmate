@@ -11,13 +11,13 @@ import AddToCartButton from './add-to-cart-button';
 import Link from 'next/link';
 
 export function generateStaticParams() {
-  return products.map((product) => ({
+  return products.products.map((product) => ({
     id: product.id.toString(),
   }));
 }
 
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
-  const product = products.find(p => p.id === parseInt(params.id, 10));
+  const product = products.products.find(p => p.id === parseInt(params.id, 10));
 
   if (!product) {
     notFound();
