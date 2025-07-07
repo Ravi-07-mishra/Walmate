@@ -1,0 +1,83 @@
+
+[
+  {
+    "id": 1,
+    "name": "Classic Denim Jacket",
+    "price": 3499,
+    "imageUrl": "https://placehold.co/600x600.png",
+    "dataAiHint": "denim jacket",
+    "description": "A timeless denim jacket for all seasons. Made with 100% cotton for comfort and durability.",
+    "material": "100% Cotton",
+    "features": "Button-front, Chest pockets, Washed look"
+  },
+  {
+    "id": 2,
+    "name": "Urban Leather Boots",
+    "price": 4999,
+    "imageUrl": "https://placehold.co/600x600.png",
+    "dataAiHint": "leather boots",
+    "description": "Step out in style with these rugged yet refined leather boots. Perfect for urban adventures.",
+    "material": "Genuine Leather",
+    "features": "Lace-up, Ankle support, Non-slip sole"
+  },
+  {
+    "id": 3,
+    "name": "Minimalist Canvas Tote",
+    "price": 1999,
+    "imageUrl": "https://placehold.co/600x600.png",
+    "dataAiHint": "canvas tote",
+    "description": "Carry your essentials in this chic and simple canvas tote bag. Versatile and eco-friendly.",
+    "material": "Heavy-duty Canvas",
+    "features": "Spacious interior, Inner pocket, Sturdy handles"
+  },
+  {
+    "id": 4,
+    "name": "Aviator Sunglasses",
+    "price": 2499,
+    "imageUrl": "https://placehold.co/600x600.png",
+    "dataAiHint": "aviator sunglasses",
+    "description": "Classic aviator sunglasses with a modern twist. Offers 100% UV protection.",
+    "material": "Metal Alloy Frame",
+    "features": "Polarized lenses, UV400 protection, Lightweight"
+  },
+  {
+    "id": 5,
+    "name": "Striped Cotton Shirt",
+    "price": 2199,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "dataAiHint": "cotton shirt",
+    "description": "A sharp and comfortable striped shirt, perfect for casual or semi-formal occasions.",
+    "material": "100% Premium Cotton",
+    "features": "Breathable fabric, Slim fit, Button-down collar"
+  },
+  {
+    "id": 6,
+    "name": "Running Sport Shoes",
+    "price": 3999,
+    "imageUrl": "https://placehold.co/600x600.png",
+    "dataAiHint": "sport shoes",
+    "description": "Enhance your performance with these lightweight and responsive running shoes.",
+    "material": "Mesh and Synthetic",
+    "features": "Cushioned midsole, Breathable upper, Durable outsole"
+  },
+  {
+    "id": 7,
+    "name": "Leather Crossbody Bag",
+    "price": 3299,
+    "imageUrl": "https://placehold.co/600x600.png",
+    "dataAiHint": "leather bag",
+    "description": "A sleek and functional crossbody bag, crafted from high-quality leather.",
+    "material": "Full-grain Leather",
+    "features": "Adjustable strap, Multiple compartments, Secure zipper"
+  },
+  {
+    "id": 8,
+    "name": "Retro Round Eyeglasses",
+    "price": 1899,
+    "imageUrl": "https://placehold.co/600x600.png",
+    "dataAiHint": "round eyeglasses",
+    "description": "Achieve a vintage-inspired look with these stylish round eyeglasses.",
+    "material": "Acetate and Metal",
+    "features": "Comfortable fit, Blue light blocking, Classic design"
+  }
+]

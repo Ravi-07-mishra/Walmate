@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from 'next/image';
@@ -31,7 +32,7 @@ export default function CartPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-4">
           {cartItems.map((item) => (
-            <Card key={item.name} className="flex items-center p-4 shadow-sm">
+            <Card key={item.id} className="flex items-center p-4 shadow-sm">
               <div className="relative w-24 h-24 rounded-md overflow-hidden mr-4">
                 <Image
                   src={item.imageUrl}
@@ -46,20 +47,21 @@ export default function CartPage() {
                 <p className="text-primary font-bold">₹{item.price.toLocaleString('en-IN')}</p>
               </div>
               <div className="flex items-center gap-2">
-                 <Button variant="ghost" size="icon" onClick={() => updateQuantity(item.name, item.quantity - 1)}>
+                 <Button variant="ghost" size="icon" onClick={() => updateQuantity(item.id, item.quantity - 1)}>
                     <MinusCircle className="h-5 w-5" />
                  </Button>
                 <Input
                   type="number"
                   value={item.quantity}
-                  onChange={(e) => updateQuantity(item.name, parseInt(e.target.value) || 1)}
+                  onChange={(e) => updateQuantity(item.id, parseInt(e.target.value) || 1)}
                   className="w-16 text-center h-9"
+                  min="1"
                 />
-                <Button variant="ghost" size="icon" onClick={() => updateQuantity(item.name, item.quantity + 1)}>
+                <Button variant="ghost" size="icon" onClick={() => updateQuantity(item.id, item.quantity + 1)}>
                     <PlusCircle className="h-5 w-5" />
                 </Button>
               </div>
-              <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive ml-4" onClick={() => removeFromCart(item.name)}>
+              <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive ml-4" onClick={() => removeFromCart(item.id)}>
                 <Trash2 className="h-5 w-5" />
               </Button>
             </Card>

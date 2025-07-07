@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
@@ -11,8 +12,8 @@ export interface CartItem extends Product {
 interface CartContextType {
   cartItems: CartItem[];
   addToCart: (product: Product) => void;
-  removeFromCart: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
+  removeFromCart: (productId: number) => void;
+  updateQuantity: (productId: number, quantity: number) => void;
   cartCount: number;
   totalPrice: number;
 }
@@ -25,10 +26,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const addToCart = useCallback((product: Product) => {
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.name === product.name);
+      const existingItem = prevItems.find((item) => item.id === product.id);
       if (existingItem) {
         return prevItems.map((item) =>
-          item.name === product.name ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
       return [...prevItems, { ...product, quantity: 1 }];
@@ -39,17 +40,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     });
   }, [toast]);
 
-  const removeFromCart = useCallback((productName: string) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.name !== productName));
+  const removeFromCart = useCallback((productId: number) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== productId));
   }, []);
 
-  const updateQuantity = useCallback((productName: string, quantity: number) => {
+  const updateQuantity = useCallback((productId: number, quantity: number) => {
     if (quantity <= 0) {
-      removeFromCart(productName);
+      removeFromCart(productId);
     } else {
       setCartItems((prevItems) =>
         prevItems.map((item) =>
-          item.name === productName ? { ...item, quantity } : item
+          item.id === productId ? { ...item, quantity } : item
         )
       );
     }

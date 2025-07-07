@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -39,8 +40,9 @@ import {
   type DisplaySuggestedProductsOutput,
 } from '@/ai/flows/display-suggested-products';
 import type { Product } from './product-card';
-import ProductDetailModal from './product-detail-modal';
 import { useCart } from '@/context/cart-context';
+import allProducts from '@/data/products.json';
+import Link from 'next/link';
 
 interface Message {
   id: string;
@@ -60,7 +62,6 @@ export default function ChatAssistant() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const { toast } = useToast();
   const { addToCart } = useCart();
 
@@ -113,8 +114,18 @@ export default function ChatAssistant() {
   };
   
   const handleProductSelect = (product: any) => {
-    addToCart(product);
-    setIsOpen(false);
+    // The AI product doesn't have an ID. Find the full product details from our DB.
+    const fullProduct = allProducts.find(p => p.name === product.name);
+
+    if (fullProduct) {
+        addToCart(fullProduct as Product);
+    } else {
+        toast({
+            variant: 'destructive',
+            title: 'Product not available',
+            description: 'Sorry, this specific product could not be added to the cart right now.',
+        });
+    }
   }
 
   return (
@@ -183,29 +194,38 @@ export default function ChatAssistant() {
                       <div className="mt-2">
                         <Carousel className="w-full max-w-xs">
                           <CarouselContent>
-                            {message.products.map((product, index) => (
-                              <CarouselItem key={index} className="basis-4/5">
-                                <Card className="overflow-hidden">
-                                  <CardContent className="p-0">
-                                    <Image
-                                      src={product.imageUrl || 'https://placehold.co/200x200.png'}
-                                      alt={product.name || 'product'}
-                                      width={200}
-                                      height={200}
-                                      className="w-full h-auto aspect-square object-cover"
-                                      data-ai-hint={product.name?.toLowerCase().split(' ').slice(0,2).join(' ')}
-                                    />
-                                    <div className="p-3">
-                                      <p className="font-semibold truncate">{product.name}</p>
-                                      <p className="text-sm text-primary font-bold">₹{product.price?.toLocaleString('en-IN')}</p>
-                                      <Button size="sm" className="w-full mt-2" onClick={() => handleProductSelect(product)}>
-                                        Add to Cart
-                                      </Button>
-                                    </div>
-                                  </CardContent>
-                                </Card>
-                              </CarouselItem>
-                            ))}
+                            {message.products.map((product, index) => {
+                              const fullProduct = allProducts.find(p => p.name === product.name);
+                              return (
+                                <CarouselItem key={index} className="basis-4/5">
+                                  <Card className="overflow-hidden">
+                                    <CardContent className="p-0">
+                                      <Link href={fullProduct ? `/product/${fullProduct.id}` : '#'} onClick={() => fullProduct && setIsOpen(false)}>
+                                        <Image
+                                          src={product.imageUrl || 'https://placehold.co/200x200.png'}
+                                          alt={product.name || 'product'}
+                                          width={200}
+                                          height={200}
+                                          className="w-full h-auto aspect-square object-cover"
+                                          data-ai-hint={product.name?.toLowerCase().split(' ').slice(0,2).join(' ')}
+                                        />
+                                      </Link>
+                                      <div className="p-3">
+                                        <p className="font-semibold truncate">
+                                          <Link href={fullProduct ? `/product/${fullProduct.id}` : '#'} onClick={() => fullProduct && setIsOpen(false)} className="hover:underline">
+                                            {product.name}
+                                          </Link>
+                                        </p>
+                                        <p className="text-sm text-primary font-bold">₹{product.price?.toLocaleString('en-IN')}</p>
+                                        <Button size="sm" className="w-full mt-2" onClick={() => handleProductSelect(product)}>
+                                          Add to Cart
+                                        </Button>
+                                      </div>
+                                    </CardContent>
+                                  </Card>
+                                </CarouselItem>
+                              )
+                            })}
                           </CarouselContent>
                           <CarouselPrevious className="-left-2" />
                           <CarouselNext className="-right-2" />
@@ -248,13 +268,6 @@ export default function ChatAssistant() {
           </SheetFooter>
         </SheetContent>
       </Sheet>
-      {selectedProduct && (
-        <ProductDetailModal 
-            product={selectedProduct} 
-            isOpen={!!selectedProduct}
-            onClose={() => setSelectedProduct(null)}
-        />
-      )}
     </>
   );
 }
